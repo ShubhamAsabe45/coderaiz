@@ -1,0 +1,15 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "name": "Shubham",
+      "email": "shubhamasabe360@gmail.com",
+      "department": "Web",
+      "date": "2024-05-02"
+    }
+  ],
+  "comments": [],
+  "profile": {
+    "name": "typicode"
+  }
+}

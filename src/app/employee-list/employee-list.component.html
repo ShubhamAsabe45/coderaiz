@@ -1,0 +1,90 @@
+<div class="container-fluid d-flex justify-content-between header p-2">
+    <h4>Coderize</h4>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onClick()">Add
+        Employee</button>
+</div>
+
+<!-- Table -->
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">NAME</th>
+            <th scope="col">EMAIL</th>
+            <th scope="col">DEPARTMENT</th>
+            <th scope="col">JOINING DATE</th>
+            <th scope="col">ACTIONS</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of employeeData">
+            <th scope="row">{{row.id}}</th>
+            <td>{{row.name}}</td>
+            <td>{{row.email}}</td>
+            <td>{{row.department}}</td>
+            <td>{{row.date}}</td>
+            <td>
+                <button type="button" id="edit" class="btn btn-info"  data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onEdit(row)">Edit</button>
+                <button type="button ml-2" class="btn btn-danger" (click)="deleteEmp(row)">Delete</button>
+            </td>
+
+        </tr>
+
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Employee Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="employeeForm">
+                    <div class="form-group">
+                        <label class="fw-bold" for="name">Name <span class="text-danger">*</span></label>
+                        <input type="text" formControlName="name" id="username" class="form-control" placeholder="Name">
+                        <div class="text-danger"
+                            *ngIf="employeeForm.get('name')?.invalid && employeeForm.get('name')?.touched">
+                            Please fill name.
+                        </div>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label class="fw-bold" for="email">E-mail <span class="text-danger">*</span></label>
+                        <input type="email" formControlName="email" id="email" class="form-control" placeholder="Email">
+                        <div class="text-danger"
+                            *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched">
+                            Please fill email.
+                        </div>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label class="fw-bold" for="department">Department <span class="text-danger">*</span></label>
+                        <input type="text" formControlName="department" id="department" class="form-control"
+                            placeholder="Department">
+                        <div class="text-danger"
+                            *ngIf="employeeForm.get('department')?.invalid && employeeForm.get('department')?.touched">
+                            Please fill department.
+                        </div>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label class="fw-bold" for="date">Joining Date <span class="text-danger">*</span></label>
+                        <input type="date" formControlName="date" id="date" class="form-control" placeholder="Date">
+                        <div class="text-danger"
+                            *ngIf="employeeForm.get('date')?.invalid && employeeForm.get('date')?.touched">
+                            Please fill date.
+                        </div>
+                    </div>
+                    <div class="text-danger" *ngIf="errMsg">
+                        Fill Mandatory Fields.
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancle" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" *ngIf="!edit" (click)="postEMpDetails()">Add</button>
+                <button type="button" class="btn btn-primary" *ngIf="edit" (click)="updateEmp()">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
